@@ -255,9 +255,7 @@ func_call : expr '(' opt_exprs ')'           { $$ = new mml::function_call_node(
           | '@' '(' opt_exprs ')'            { $$ = new mml::function_call_node(LINE, nullptr, $3); }
 
 lval : tID                                   { $$ = new cdk::variable_node(LINE, $1); }
-     | lval '[' expr ']'                     { $$ = new mml::index_node(LINE, new cdk::rvalue_node(LINE, $1), $3); }
-     | '(' expr ')' '[' expr ']'             { $$ = new mml::index_node(LINE, $2, $5); }
-     | func_call '[' expr ']'                { $$ = new mml::index_node(LINE, $1, $3); }
+     | expr '[' expr ']'                     { $$ = new mml::index_node(LINE, $1, $3); }
      ;
 
 string    : tSTRING                          { $$ = $1; }
